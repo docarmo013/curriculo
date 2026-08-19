@@ -1,0 +1,392 @@
+/* ================================================
+   CURRÍCULO — style.css
+   ================================================
+   Organização:
+   1. Variáveis (personalize aqui!)
+   2. Reset e base
+   3. Layout principal (.cv)
+   4. Sidebar
+   5. Conteúdo principal
+   6. Responsivo
+   7. Print
+================================================ */
+
+
+/* ------------------------------------------------
+   1. VARIÁVEIS — edite este bloco para mudar cores
+      e fontes em todo o site de uma vez.
+------------------------------------------------ */
+:root {
+  /* Cores */
+  --cor-primaria:       #0b0e2c;   /* fundo do sidebar */
+  --cor-acento:         #e8c547;   /* destaque amarelo-ouro */
+  --cor-texto-sidebar:  #f0f0f0;   /* texto no sidebar */
+  --cor-texto-muted:    #a0a0b0;   /* texto secundário no sidebar */
+  --cor-bg:             #fafaf8;   /* fundo da coluna principal */
+  --cor-texto:          #1c1c1c;   /* texto principal */
+  --cor-texto-sub:      #555555;   /* texto de apoio */
+  --cor-linha:          #e2e2e2;   /* divisórias */
+  --cor-tag-bg:         #eef0f5;   /* fundo das tags */
+  --cor-tag-texto:      #3a3a5c;   /* texto das tags */
+
+  /* Tipografia */
+  --fonte-titulo: 'Playfair Display', serif;
+  --fonte-corpo:  'Inter', sans-serif;
+
+  /* Espaçamento */
+  --padding-sidebar: 2.5rem 1.75rem;
+  --padding-main:    2.75rem 2.5rem;
+  --gap-secao:       2rem;
+}
+
+
+/* ------------------------------------------------
+   2. RESET E BASE
+------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fonte-corpo);
+  background: #e8e8e0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  color: var(--cor-texto);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ------------------------------------------------
+   3. LAYOUT PRINCIPAL
+------------------------------------------------ */
+.cv {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  max-width: 960px;
+  width: 100%;
+  min-height: 1100px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+
+/* ------------------------------------------------
+   4. SIDEBAR (coluna esquerda)
+------------------------------------------------ */
+.sidebar {
+  background: var(--cor-primaria);
+  color: var(--cor-texto-sidebar);
+  padding: var(--padding-sidebar);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-secao);
+}
+
+/* Avatar e nome */
+.avatar-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid var(--cor-acento);
+  background: #2d2d4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--cor-acento);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.nome {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.cargo {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--cor-acento);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Seções do sidebar */
+.sb-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sb-titulo {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cor-acento);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 0.2rem;
+}
+
+.sb-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.sb-label {
+  font-size: 0.68rem;
+  color: var(--cor-texto-muted);
+  letter-spacing: 0.04em;
+}
+
+.sb-valor {
+  font-size: 0.82rem;
+  color: var(--cor-texto-sidebar);
+  line-height: 1.4;
+}
+
+.sb-valor a {
+  border-bottom: 1px solid rgba(232, 197, 71, 0.3);
+  transition: border-color 0.2s;
+}
+
+.sb-valor a:hover {
+  border-color: var(--cor-acento);
+}
+
+/* Barras de habilidade */
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.skill-nome {
+  font-size: 0.78rem;
+  color: var(--cor-texto-sidebar);
+}
+
+.skill-barra-bg {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skill-barra-fill {
+  height: 100%;
+  width: 0;                      /* começa em 0 — JS anima até o valor real */
+  background: var(--cor-acento);
+  border-radius: 2px;
+  transition: width 0.8s ease;  /* animação suave ao carregar */
+}
+
+/* Idiomas */
+.idioma-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  margin-bottom: 0.35rem;
+}
+
+.idioma-nivel {
+  font-size: 0.68rem;
+  color: var(--cor-acento);
+  background: rgba(232, 197, 71, 0.12);
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+
+/* ------------------------------------------------
+   5. CONTEÚDO PRINCIPAL (coluna direita)
+------------------------------------------------ */
+.main {
+  background: var(--cor-bg);
+  padding: var(--padding-main);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-secao);
+}
+
+/* Seção genérica */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cor-primaria);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--cor-acento);
+  display: inline-block;
+}
+
+/* Perfil / resumo */
+.resumo-texto {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--cor-texto-sub);
+  border-left: 3px solid var(--cor-acento);
+  padding-left: 1rem;
+  font-style: italic;
+}
+
+/* Cards de experiência / educação */
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--cor-linha);
+  transition: border-color 0.2s;
+}
+
+.entry:hover {
+  border-left-color: var(--cor-acento);
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.entry-titulo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.entry-empresa {
+  font-size: 0.82rem;
+  color: var(--cor-texto-sub);
+  font-weight: 500;
+  margin-top: 0.1rem;
+}
+
+.entry-periodo {
+  font-size: 0.72rem;
+  color: #ffffff;
+  background: var(--cor-primaria);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.entry-desc {
+  font-size: 0.82rem;
+  color: var(--cor-texto-sub);
+  line-height: 1.65;
+}
+
+/* Tags de tecnologias / ferramentas */
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.tag {
+  font-size: 0.68rem;
+  background: var(--cor-tag-bg);
+  color: var(--cor-tag-texto);
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+
+/* ------------------------------------------------
+   6. RESPONSIVO
+------------------------------------------------ */
+@media (max-width: 720px) {
+  body {
+    padding: 0;
+  }
+
+  .cv {
+    grid-template-columns: 1fr;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .sidebar {
+    padding: 2rem 1.5rem;
+  }
+
+  .main {
+    padding: 2rem 1.5rem;
+  }
+
+  .entry-header {
+    flex-direction: column;
+  }
+}
+
+
+/* ------------------------------------------------
+   7. PRINT — Ctrl+P ou Salvar como PDF
+------------------------------------------------ */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .cv {
+    box-shadow: none;
+    max-width: 100%;
+    min-height: unset;
+  }
+
+  .entry {
+    break-inside: avoid;
+  }
+}
